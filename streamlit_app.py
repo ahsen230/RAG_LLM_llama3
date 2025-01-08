@@ -19,7 +19,7 @@ os.environ['HUGGINGFACEHUB_API_TOKEN'] = hf_token_key
 
 def process_input(input_type, input_data):
     loader = None
-    if input_type == "Link":
+    if input_type == "Web Link":
         loader = WebBaseLoader(input_data)
         documents = loader.load()
     elif input_type == "PDF":
@@ -33,11 +33,6 @@ def process_input(input_type, input_data):
         for page in pdf_reader.pages:
             text += page.extract_text()
         documents = text
-    elif input_type == "Text":
-        if isinstance(input_data, str):
-            documents = input_data  # Input is already a text string
-        else:
-            raise ValueError("Expected a string for 'Text' input type.")
     elif input_type == "DOCX":
         if isinstance(input_data, BytesIO):
             doc = Document(input_data)
@@ -47,19 +42,11 @@ def process_input(input_type, input_data):
             raise ValueError("Invalid input data for DOCX")
         text = "\n".join([para.text for para in doc.paragraphs])
         documents = text
-    elif input_type == "TXT":
-        if isinstance(input_data, BytesIO):
-            text = input_data.read().decode('utf-8')
-        elif isinstance(input_data, UploadedFile):
-            text = str(input_data.read().decode('utf-8'))
-        else:
-            raise ValueError("Invalid input data for TXT")
-        documents = text
     else:
         raise ValueError("Unsupported input type")
 
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
-    if input_type == "Link":
+    if input_type == "Web Link":
         texts = text_splitter.split_documents(documents)
         texts = [ str(doc.page_content) for doc in texts ]  # Access page_content from each Document 
     else:
@@ -119,14 +106,14 @@ def answer_question(vectorstore, query):
 
 
 def main():
-    st.title("RAG LLM Llama 3 🦙")
+    st.title("RAG LLM Llama 3 🦙 ")
     input_type = st.selectbox("Input Type", 
-                              ("Link", "PDF", "Text", "DOCX", "TXT"),
+                              ("Web Link", "PDF", "Text", "DOCX"),
                               index = None,
                               placeholder= "Choose input type for Q/A"
                               )
     
-    if input_type == "Link":
+    if input_type == "Web Link":
         input_data = st.text_input("Enter URL link")
     elif input_type == "Text":
         input_data = st.text_input("Enter text")
