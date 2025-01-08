@@ -1,0 +1,7 @@
+[theme]
+base = "light"  # Options: "dark" or "light"
+primaryColor = "#007BFF"  # Bright blue for buttons and highlights
+backgroundColor = "#F0F8FF"  # Alice Blue (light background color)
+secondaryBackgroundColor = "#DCE4F7"  # Soft light blue for sidebars
+textColor = "#00274D"  # Dark Blue for text
+font = "sans serif"  # Font style ("sans serif", "serif", "monospace")
