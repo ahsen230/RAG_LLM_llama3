@@ -18,6 +18,8 @@ import time
 from hf_key import hf_token_key  # Set the Hugging Face Hub API token as an environment variable
 os.environ['HUGGINGFACEHUB_API_TOKEN'] = hf_token_key
 
+
+
 def process_input(input_type, input_data):
     loader = None
     if input_type == "Web Link":
@@ -143,7 +145,7 @@ def main():
         st.session_state["vectorstore"] = vectorstore
     if "vectorstore" in st.session_state:
         query = st.text_input("Ask your question")
-        if st.button("Generate Answer"):
+        if st.button("Generate Answer", type="primary" , icon="🔮" ):
             answer = answer_question(st.session_state["vectorstore"], query)
             st.subheader("Answer:")
             st.write(stream_answer(answer))
@@ -151,6 +153,7 @@ def main():
             st.divider()
             st.text("You can ask a new question again from the same RAG input")
             #st.write(answer)
+
 
 if __name__ == "__main__":
     main()
