@@ -14,11 +14,11 @@ from langchain_community.docstore.in_memory import InMemoryDocstore
 from langchain_huggingface import HuggingFaceEndpoint
 from langchain.prompts import PromptTemplate
 import time
-
 from hf_key import hf_token_key  # Set the Hugging Face Hub API token as an environment variable
 os.environ['HUGGINGFACEHUB_API_TOKEN'] = hf_token_key
 
-
+url = "https://www.ahsenwaheed.com"
+st.caption("Made by [me](%s) :)" % url)
 
 def process_input(input_type, input_data):
     loader = None
@@ -153,7 +153,6 @@ def main():
             st.divider()
             st.text("You can ask a new question again from the same RAG input")
             #st.write(answer)
-
 
 if __name__ == "__main__":
     main()
