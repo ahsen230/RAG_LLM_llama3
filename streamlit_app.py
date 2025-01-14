@@ -19,6 +19,9 @@ os.environ['HUGGINGFACEHUB_API_TOKEN'] = hf_token_key
 
 url = "https://www.ahsenwaheed.com"
 st.caption("Made by [me](%s) :)" % url)
+colablink = "https://colab.research.google.com/drive/1ogLYtjz1CTtfYOWK5ROlcXhGjMAXx-VE?usp=sharing"
+st.caption("Google Colab (free version) implementation of similar work - [RAG using Wikipedia pages](%s)" % colablink)
+
 
 def process_input(input_type, input_data):
     loader = None
